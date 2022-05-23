@@ -1,0 +1,40 @@
+CREATE TABLE USUARIO (
+	id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	cpf VARCHAR(11),
+	nome VARCHAR(100),
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE INFO (
+	id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+	cpf VARCHAR(11),
+	genero CHAR(1),
+	ano_nascimento SMALLINT(5) UNSIGNED,
+	PRIMARY KEY (id)
+);
+
+INSERT INTO USUARIO (id, cpf, nome) VALUES
+	(1, '16798125050', 'Luke Skywalker'),
+	(2, '59875804045', 'Bruce Wayne'),
+	(3, '04707649025', 'Diane Prince'),
+	(4, '21142450040', 'Bruce Banner'),
+	(5, '83257946074', 'Harley Quinn'),
+	(6, '07583509025', 'Peter Parker');
+	
+INSERT INTO INFO (id, cpf, genero, ano_nascimento) VALUES
+	(1, '16798125050', 'M', 1976),
+	(2, '59875804045', 'M', 1960),
+	(3, '04707649025', 'F', 1988),
+	(4, '21142450040', 'M', 1954),
+	(5, '83257946074', 'F', 1970),
+	(6, '07583509025', 'M', 1972);
+
+
+SELECT 
+	CONCAT(USUARIO.nome, ' - ', INFO.genero) AS usuário,
+	IF (YEAR(NOW()) - INFO.ano_nascimento > 50, 'SIM', 'NÃO') AS maior_50_anos
+FROM USUARIO
+INNER JOIN INFO ON USUARIO.cpf = INFO.cpf
+WHERE USUARIO.cpf > '05000000000'
+AND USUARIO.cpf < '30000000000'
+ORDER BY USUARIO.cpf ASC
